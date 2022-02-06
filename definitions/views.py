@@ -23,6 +23,7 @@ def get_definition(word):
 
 @api_view(['POST'])
 def snippet_list(request):
+
     serializer = Req_Serializers(data=request.data)
     if serializer.is_valid():
         word = serializer.data['word'].strip().lower()
@@ -32,6 +33,4 @@ def snippet_list(request):
         else:
             return Response({"word":request.data['word'], "error": definition }, status=status.HTTP_404_NOT_FOUND)
     else:
-        if "word" in request.data:
-            return Response({"word": None, "error":"Invalid JSON input."}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"word": None, "error":"Invalid JSON input."}, status=status.HTTP_201_CREATED)
